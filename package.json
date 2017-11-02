@@ -7,7 +7,8 @@
   "author": "Codaisseur <teachers@codaisseur.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "seed": "node db/seed.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -18,5 +19,8 @@
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.4.0"
+  },
+  "devDependencies": {
+    "superagent": "^3.8.0"
   }
 }

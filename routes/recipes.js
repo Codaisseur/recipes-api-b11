@@ -1,6 +1,9 @@
 // routes/recipes.js
 const router = require('express').Router()
+const passport = require('../config/auth')
 const { Recipe } = require('../models')
+
+const authenticate = passport.authorize('jwt', { session: false })
 
 router.get('/recipes', (req, res, next) => {
   Recipe.find()
@@ -21,14 +24,15 @@ router.get('/recipes', (req, res, next) => {
       })
       .catch((error) => next(error))
   })
-  .post('/recipes', (req, res, next) => {
+  .post('/recipes', authenticate, (req, res, next) => {
     let newRecipe = req.body
+    newRecipe.authorId = req.account._id
 
     Recipe.create(newRecipe)
       .then((recipe) => res.json(recipe))
       .catch((error) => next(error))
   })
-  .put('/recipes/:id', (req, res, next) => {
+  .put('/recipes/:id', authenticate, (req, res, next) => {
     const id = req.params.id
     const updatedRecipe = req.body
 
@@ -36,7 +40,7 @@ router.get('/recipes', (req, res, next) => {
       .then((recipe) => res.json(recipe))
       .catch((error) => next(error))
   })
-  .patch('/recipes/:id', (req, res, next) => {
+  .patch('/recipes/:id', authenticate, (req, res, next) => {
     const id = req.params.id
     const patchForRecipe = req.body
 
@@ -52,7 +56,7 @@ router.get('/recipes', (req, res, next) => {
       })
       .catch((error) => next(error))
   })
-  .delete('/recipes/:id', (req, res, next) => {
+  .delete('/recipes/:id', authenticate, (req, res, next) => {
     const id = req.params.id
     Recipe.findByIdAndRemove(id)
       .then(() => {
