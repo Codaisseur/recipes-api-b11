@@ -5,5 +5,11 @@
   "main": "index.js",
   "repository": "https://github.com/Codaisseur/recipes-api-b11",
   "author": "Codaisseur <teachers@codaisseur.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
